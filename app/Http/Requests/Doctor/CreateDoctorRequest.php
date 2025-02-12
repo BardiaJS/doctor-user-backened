@@ -11,7 +11,7 @@ class CreateDoctorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,6 +21,8 @@ class CreateDoctorRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'category' => 'required'
+        ];
     }
 }

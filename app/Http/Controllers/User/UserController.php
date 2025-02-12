@@ -38,13 +38,15 @@ class UserController extends Controller
 
         if (Auth::attempt($validated)) {
             $user = Auth::user();
-            $token = $user->createToken('api_token')->plainTextToken;
-            if ($user->patient) {
+            if ($user->is_doctor == false) {
                 $user_information = $user->patient;
+                $token = $user->createToken('api_token')->plainTextToken;
+                return response()->json(['token' => $token, 'token_type' => "Bearer", 'user' => $user_information], 200);
             } else {
                 $user_information = $user->doctor;
+                $token = $user->createToken('api_token')->plainTextToken;
+                return response()->json(['token' => $token, 'token_type' => "Bearer", 'user' => $user_information], 200);
             }
-            return response()->json(['token' => $token, 'token_type' => "Bearer", 'user' => $user_information], 200);
         } else {
             return response()->json([
                 'message' => "login information invalid"

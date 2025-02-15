@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Reserve\ReserveResource;
 use App\Http\Requests\Reserve\CreateReserveRequest;
+use App\Http\Requests\Reserve\UpdateReserveRequest;
 
 class ReserveController extends Controller
 {
@@ -26,9 +27,16 @@ class ReserveController extends Controller
 
     public function delete_reserve(Reserve $reserve)
     {
-        $reserve->delete();
-        return response()->json([
-            'message' => 'reserve deleted successfylly'
-        ]);
+
+        if (($reserve->patient_id == Auth::user()->patient->id) && ((bool)$reserve->doctor_id)) {
+            $reserve->delete();
+            return response()->json([
+                'message' => 'reserve deleted successfylly'
+            ]);
+        } else {
+            return response()->json([
+                'message' => "You cannot update other person's reserve!"
+            ]);
+        }
     }
 }

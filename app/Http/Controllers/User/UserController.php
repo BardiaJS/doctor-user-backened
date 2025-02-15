@@ -7,10 +7,11 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -84,5 +85,16 @@ class UserController extends Controller
         }
 
         return (bool) false;
+    }
+
+    public function update_user(User $user, UpdateUserRequest $request)
+    {
+        if (Auth::user()->id == $user->id) {
+            $validated = $request->validated();
+            $user->update($validated);
+            return new UserResource($user);
+        } else {
+            abort(403, "You don't have access to update the other user profile!");
+        }
     }
 }

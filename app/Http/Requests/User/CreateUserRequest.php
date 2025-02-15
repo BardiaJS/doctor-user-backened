@@ -26,8 +26,7 @@ class CreateUserRequest extends FormRequest
             'national_id' => ['required', Rule::unique('users', 'national_id')],
             'first_name' => ['required', 'regex:/^[\p{L}]+$/u'],
             'last_name' => ['required', 'regex:/^[\p{L}]+$/u'],
-            'password' => ['min:6', 'regex:/^[a-zA-Z0-9]*$/'],
-            'patient_case' => ['max: 50']
+            'password' => ['required', 'min:6', 'regex:/^[a-zA-Z0-9]*$/'],
         ];
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Medicine\CreateMedicineRequest;
+use App\Http\Requests\Medicine\UpdateMedicineRequest;
 use App\Http\Resources\Medicine\MedicineResource;
 
 class MedicineController extends Controller
@@ -26,9 +27,26 @@ class MedicineController extends Controller
 
     public function delete_medicine(Medicine $medicine)
     {
-        $medicine->delete();
-        return response([
-            'message' => 'medicine deleted successfully!'
-        ]);
+
+        if ($medicine->patient_id == Auth::user()->patient->id) {
+            $medicine->delete();
+            return response([
+                'message' => 'medicine deleted successfully!'
+            ]);
+        } else {
+            abort(403, "You cannot delete other person's medicine!");
+        }
+    }
+
+
+    public function update_medicine(Medicine $medicine, UpdateMedicineRequest $request)
+    {
+        if ($medicine->patient_id == Auth::user()->patient->id) {
+            $validated = $request->validated();
+            $medicine->update($validated);
+            return new MedicineResource($medicine);
+        } else {
+            abort(403, "You cannot update other person's medicine information!");
+        }
     }
 }

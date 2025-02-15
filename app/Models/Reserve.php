@@ -11,7 +11,8 @@ class Reserve extends Model
     protected $fillable = [
         'patient_id',
         'doctor_id',
-        'hour'
+        'hour',
+        'date'
     ];
     public function patient(): BelongsTo
     {

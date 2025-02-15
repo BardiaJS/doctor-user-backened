@@ -22,7 +22,8 @@ class UpdateReserveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'hour' => ['required', 'date_format:H:i']
+            'hour' => ['required', 'date_format:H:i'],
+            'date' => 'required|date_format:d F'
         ];
     }
 }

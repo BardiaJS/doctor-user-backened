@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('doctor_id')->constrained()->references('doctors')->on('id')->onDelete('cascade');
             $table->string('visit_hour');
             $table->string('date');
+            $table->boolean("is_visited")->default(false);
             $table->timestamps();
         });
     }

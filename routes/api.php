@@ -6,6 +6,8 @@ use App\Http\Controllers\Medicine\MedicineController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\Reserve\ReserveController;
 use App\Http\Controllers\User\UserController;
+use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Reserve;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +49,7 @@ Route::post('/create-reserve/doctor/{doctor}', [ReserveController::class, 'creat
 Route::delete('/delete-reserve/{reserve}', [ReserveController::class, 'delete_reserve'])->middleware('auth:sanctum');
 // update reserve
 // reserve doesn't need update endpoint
+//show patients related to doctor
+Route::get('/users-doctor/{doctor}', [PatientController::class, 'index'])->middleware('auth:sanctum');
+// show list of all doctors to the patient
+Route::get('doctor-list' . [DoctorController::class, 'index'])->middleware('auth:sanctum');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Patient;
 
 use App\Models\User;
+use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,20 @@ class PatientController extends Controller
             return new PatientResource($patient);
         } else {
             abort(403, "You cannot update other patient's profile!");
+        }
+    }
+
+    public function index(Doctor $doctor)
+    {
+        $doctor_id = $doctor->id;
+        $doctor = Doctor::with('patients')->find($doctor_id);
+        if ($doctor) {
+            $patients = $doctor->patients;
+            return response()->json([
+                'patients' => $patients
+            ]); // Assuming the Patient model has a 'name' field
+        } else {
+            abort(403, "no content!");
         }
     }
 }

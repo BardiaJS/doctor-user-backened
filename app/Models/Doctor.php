@@ -22,28 +22,15 @@ class Doctor extends Model
         return $this->hasOne(Reserve::class, 'doctor_id', 'id');
     }
 
-    public function time(): HasMany
-    {
-        return $this->hasMany(Time::class, 'doctor_id', 'id');
-    }
+
 
     public function works(): HasMany
     {
         return $this->hasMany(Work::class, 'doctor_id', 'id');
     }
 
-
-
-    public function setAvailability($date, $timeSlots)
+    public function days(): HasMany
     {
-        foreach ($timeSlots as $slot) {
-            Time::create([
-                'doctor_id' => $this->id,
-                'date' => $date,
-                'start_time' => $slot['start_time'],
-                'end_time' => $slot['end_time'],
-                'is_' => 'available'
-            ]);
-        }
+        return $this->hasMany(Day::class, 'doctor_id', 'id');
     }
 }

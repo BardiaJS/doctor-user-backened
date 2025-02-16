@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Time;
+namespace App\Http\Resources\Hour;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TimeResource extends JsonResource
+class HourResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

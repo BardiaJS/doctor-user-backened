@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Time;
+namespace App\Http\Requests\Hour;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTimeRequest extends FormRequest
+class UpdateHourRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class CreateTimeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'start_hour' => ['sometimes', 'date_format:H:i'],
+            'end_hour' => ['sometimes', 'date_format:H:i'],
         ];
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Hour;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class CreateHourRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +22,9 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'national_id' => ['sometimes', Rule::unique('users', 'national_id')],
-            'first_name' => ['sometimes', 'regex:/^[\p{L}]+$/u'],
-            'last_name' => ['sometimes', 'regex:/^[\p{L}]+$/u'],
-            'password' => ['sometimes', 'min:6', 'regex:/^[a-zA-Z0-9]*$/'],
+            'start_hour' => ['required', 'date_format:H:i'],
+            'end_hour' => ['required', 'date_format:H:i'],
+
         ];
     }
 }

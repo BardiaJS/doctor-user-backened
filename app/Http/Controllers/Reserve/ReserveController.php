@@ -19,7 +19,9 @@ class ReserveController extends Controller
         $reserve = Reserve::create([
             'patient_id' => Auth::user()->id,
             'doctor_id' => $doctor->id,
-            'hour' => $validated['hour']
+            'visit_hour' => $validated['visit_hour'],
+            'visit_date' => $validated['visit_date'],
+            'visit_day' => $validated['visit_day']
         ]);
 
         return new ReserveResource($reserve);

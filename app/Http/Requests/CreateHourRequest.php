@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Time;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTimeRequest extends FormRequest
+class CreateHourRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

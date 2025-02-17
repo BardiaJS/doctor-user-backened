@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('hours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('day_id')->constrained()->references('days')->on('id')->onDelete('cascade');
+            $table->foreignId('day_id')->constrained()->references('id')->on('days')->onDelete('cascade');
             $table->string("start_hour");
             $table->string("end_hour");
             $table->boolean('is_taken')->default(false);

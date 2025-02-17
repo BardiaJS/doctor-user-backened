@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name")->nullable();
             $table->string("time")->nullable();
-            $table->foreignId("patient_id")->constrained()->references("patients")->on('id')->onDelete('cascade');
+            $table->foreignId("patient_id")->constrained()->references("id")->on('patients')->onDelete('cascade');
             $table->timestamps();
         });
     }

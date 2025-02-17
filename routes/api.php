@@ -52,7 +52,7 @@ use App\Models\Hour;
         //show patients related to doctor
         Route::get('/users-doctor/{doctor}', [PatientController::class, 'index'])->middleware('auth:sanctum');
         // show list of all doctors to the patient
-        Route::get('/doctor-list' . [DoctorController::class, 'index'])->middleware('auth:sanctum');
+        Route::get('/doctor-list', [DoctorController::class, 'index'])->middleware('auth:sanctum');
         // DAY RELATED
         // create day
         Route::post('/create-day/{doctor}', [DayController::class, 'create_day'])->middleware('auth:sanctum');
@@ -67,6 +67,3 @@ use App\Models\Hour;
         Route::delete('/delete-hour/{hour}', [HourController::class, 'delete_hour'])->middleware('auth:sanctum');
         // update a hour
         Route::put('/update-hour/{hour}', [HourController::class, 'update_hour'])->middleware('auth:sanctum');
-        return response()->json([
-                'hour' => $hour
-        ]);

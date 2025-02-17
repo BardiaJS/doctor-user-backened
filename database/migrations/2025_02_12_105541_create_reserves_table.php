@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained()->references('patients')->on('id')->onDelete('cascade');
-            $table->foreignId('doctor_id')->constrained()->references('doctors')->on('id')->onDelete('cascade');
+            $table->foreignId('patient_id')->constrained()->references('id')->on('patients')->onDelete('cascade');
+            $table->foreignId('doctor_id')->constrained()->references('id')->on('doctors')->onDelete('cascade');
             $table->string('start_visit_hour');
             $table->string('end_visit_hour');
             $table->string('visit_day');

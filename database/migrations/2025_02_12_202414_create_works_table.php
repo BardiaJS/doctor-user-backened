@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('place_name');
             $table->string('describtion');
-            $table->foreignId('doctor_id')->constrained()->references('doctors')->on('id')->onDelete('cascade');
+            $table->foreignId('doctor_id')->constrained()->references('id')->on('doctors')->onDelete('cascade');
             $table->timestamps();
         });
     }

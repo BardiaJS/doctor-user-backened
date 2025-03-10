@@ -11,6 +11,28 @@ Route::get('/user', function (Request $request) {
 
 // Sign In User
 Route::post('/sign-in-user' , [UserController::class , 'sign_in_user']);
-
+// User Log In
+Route::post('/log-in-user' , [UserController::class , 'login_user']);
 // Sign In Patient
-Route::post('/sign-in-patient' , [PatientController::class , 'sign_in_patient']);
+Route::post('/register-patient' , [PatientController::class , 'register_patient'])->middleware('auth:sanctum');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Log Out User
+Route::post('/log-out-user' , [UserController::class , 'log_out_user'])->middleware('auth:sanctum');
+
+

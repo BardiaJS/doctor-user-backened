@@ -11,13 +11,16 @@ use App\Http\Resources\Patient\PatientResource;
 
 class PatientController extends Controller
 {
-    public function sign_in_patient(CreatePatientRequest $createPatientRequest){
-        return response()->json([
-            'id' => Auth::user()->id
-        ]);
-        // $validated = $createPatientRequest->validated();
-        // $validated['id'] = Auth::user()->id;
-        // $patient = Patient::create($validated);
-        // return new PatientResource($patient);
+    public function register_patient(CreatePatientRequest $createPatientRequest){
+        $validated = $createPatientRequest->validated();
+        $patient = Patient::create(
+            [
+                'user_id' => Auth::user()->id ,
+                'insurance_number' => $validated['insurance_number'] ,
+                'type_of_insurance' => $validated['type_of_insurance'] ,
+                'medical_history' => $validated['medical_history']
+            ]
+        );
+        return new PatientResource($patient);
     }
 }

@@ -3,20 +3,44 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\User\UserResource;
+use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\CreateUserRequest;
 
 class UserController extends Controller
 {
+
+    public function log_out_user(){
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        if ($user) {
+            // Revoke all tokens for the user
+            $user->tokens()->delete();
+        }
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function login_user (LoginUserRequest $loginUserRequest){
+        $validated = $loginUserRequest->validated();
+        if(auth()->attempt($validated)){
+            return response()->json([
+                'token' =>  Auth::user()->createToken('bareer')->plainTextToken
+            ]);
+            
+        }else{
+            abort(403 , "Invalid Data");
+        }
+        
+    }
     public function sign_in_user(CreateUserRequest $createUserRequest){
         $validated = $createUserRequest->validated();
         $validated['is_doctor'] = "false";
         if($this->check_national_id($validated['national_id'])){
             $user = User::create($validated);
-            Auth::login($user);
             return new UserResource($user);
         }else{
             abort('403' , 'invalid national_id');

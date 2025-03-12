@@ -5,14 +5,27 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UpdatePasswordRequest;
 
 class UserController extends Controller
 {
 
+    public function update_password(User  $user , UpdatePasswordRequest $updatePasswordRequest ){
+        $validated = $updatePasswordRequest->validated();
+        if(Hash::check($validated['password'], $user->password)){
+            $user->password = Hash::make($validated['new_password']);
+            $user->save();
+            return new UserResource($user);
+        }else{
+            abort(403 , 'Old password in incorrect!');
+        }
+
+    }
     public function update_user_information(User $user , UpdateUserRequest $updateUserRequest){
         $validated = $updateUserRequest->validated();
         $user->update($validated);

@@ -36,6 +36,12 @@ Route::post('/register-patient' , [PatientController::class , 'register_patient'
 // Change User Information
 Route::patch('/update-user/{user}' , [UserController::class , 'update_user_information'])->middleware('auth:sanctum');
 
+// Change Password For User
+Route::patch('/update-password/{user}' , [UserController::class , 'update_password'])->middleware('auth:sanctum');
+
+// Change Patient Information
+Route::patch('/update-patient/{patient}' , [PatientController::class , 'update_patient_information'])->middleware('auth:sanctum');
+
 // Get All Doctors List
 Route::get('/doctors-list' , [DoctorController::class , 'get_all_doctors']);
 

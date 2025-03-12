@@ -8,16 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
 
+    public function update_user_information(User $user , UpdateUserRequest $updateUserRequest){
+        $validated = $updateUserRequest->validated();
+        $user->update($validated);
+        return new UserResource($user);
+    }
+
     public function log_out_user(){
         // Get the currently authenticated user
         $user = Auth::user();
-
         if ($user) {
-            // Revoke all tokens for the user
             $user->tokens()->delete();
         }
 

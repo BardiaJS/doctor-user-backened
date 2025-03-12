@@ -14,11 +14,15 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $is_doctor = false;
+        if($this->is_doctor == 1){
+            $is_doctor = true;
+        }
         return [
             'nationalId' => $this->national_id,
             'firstName' => $this->first_name ,
             'lastName' => $this->last_name ,
-            'isDoctor' => $this->is_doctor
+            'isDoctor' => $is_doctor
         ];
     }
 }

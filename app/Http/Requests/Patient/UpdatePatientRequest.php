@@ -11,7 +11,7 @@ class UpdatePatientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdatePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'insurance_number' => ['sometimes' , 'numeric' ] ,
+            'type_of_insurance' => ['sometimes' , 'in:government,private'] ,
+            'medical_history' => ['sometimes' ,'nullable']
         ];
     }
 }

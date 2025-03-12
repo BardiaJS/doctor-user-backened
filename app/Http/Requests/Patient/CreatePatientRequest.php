@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Patient;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePatientRequest extends FormRequest
@@ -23,7 +24,6 @@ class CreatePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => [Rule::unique('patients' , 'user_id')],
             'insurance_number' => ['required' , 'numeric' ] ,
             'type_of_insurance' => ['required' , 'in:government,private'] ,
             'medical_history' => ['nullable']

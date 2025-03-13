@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Patient\PatientController;
+use App\Http\Controllers\Time\TimeController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,21 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/sign-in-user' , [UserController::class , 'sign_in_user']);
 // User Log In
 Route::post('/log-in-user' , [UserController::class , 'login_user'])->name('login');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Sign In Patient
 Route::post('/register-patient' , [PatientController::class , 'register_patient'])->middleware('auth:sanctum');
@@ -46,8 +32,10 @@ Route::patch('/update-patient/{patient}' , [PatientController::class , 'update_p
 Route::get('/doctors-list' , [DoctorController::class , 'get_all_doctors']);
 
 // Get All Users
-Route::get('/get-all-users' , [DoctorController::class , 'get_all_users']);
+Route::get('/get-all-users' , [UserController::class , 'get_all_users']);
 
+// Set Time For Doctor
+Route::post('/set-time/doctor/{doctor}' , [TimeController::class , 'set_time'])->middleware('auth:sanctum');
 
 // Log Out User
 Route::post('/log-out-user' , [UserController::class , 'log_out_user'])->middleware('auth:sanctum');

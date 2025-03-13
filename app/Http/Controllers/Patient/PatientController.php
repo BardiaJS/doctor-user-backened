@@ -26,7 +26,7 @@ class PatientController extends Controller
         if($isUserIdUnique){
             $patient = Patient::create(
                 [
-                    'user_id' => Rule::unique('patients' , 'user_id'),
+                    'user_id' => $userId,
                     'insurance_number' => $validated['insurance_number'] ,
                     'type_of_insurance' => $validated['type_of_insurance'] ,
                     'medical_history' => $validated['medical_history']

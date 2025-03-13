@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -14,6 +15,11 @@ use App\Http\Requests\User\UpdatePasswordRequest;
 
 class UserController extends Controller
 {
+
+    public function get_all_users(){
+        $users = User::all();
+        return new UserCollection($users);
+    }
 
     public function update_password(User  $user , UpdatePasswordRequest $updatePasswordRequest ){
         $validated = $updatePasswordRequest->validated();

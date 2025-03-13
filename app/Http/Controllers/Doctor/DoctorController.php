@@ -12,12 +12,10 @@ use App\Http\Resources\Doctor\DoctorCollection;
 class DoctorController extends Controller
 {
 
-    public function get_all_users(){
-        $users = User::all();
-        return new UserCollection($users);
-    }
-    public function get_all_doctors(){
 
+
+
+    public function get_all_doctors(){
         $doctors = Doctor::all();
         if($doctors->isEmpty()== false){
             

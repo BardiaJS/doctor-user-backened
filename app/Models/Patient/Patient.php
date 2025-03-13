@@ -17,7 +17,7 @@ class Patient extends Model
         'type_of_insurance',
         'medical_history',
     ];
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

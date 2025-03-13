@@ -3,6 +3,7 @@
 namespace App\Models\Doctor;
 
 use App\Models\User;
+use App\Models\Time\Time;
 use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
@@ -13,8 +14,12 @@ class Doctor extends Model
         'record',
     ];
 
-    public function User()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function time(){
+        return $this->hasOne(Time::class , 'doctor_id' , 'id');
     }
 }

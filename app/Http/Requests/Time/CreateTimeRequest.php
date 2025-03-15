@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Time;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTimeRequest extends FormRequest
@@ -22,9 +23,7 @@ class CreateTimeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day' => ['numeric' , 'min:1' , 'max:31'] ,
-            'month'=> ['in:January, February, March, April, May, June, July, August, September, October, November,  December , january, february, march, april, may, june, july, august, september, october, november, december'] ,
-            'year' => ['numeric' , 'min:1990' , 'max:2025'] 
+            'date' => ['required' , 'date' , 'date_format:d-m-Y' , 'regex:/\d{1,2}-\d{1,2}-\d{4}/' , Rule::unique('times' , 'date')]
         ];
     }
 }

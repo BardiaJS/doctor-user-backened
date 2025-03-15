@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\Hour\HourController;
 use App\Http\Controllers\Patient\PatientController;
+use App\Http\Controllers\Reserve\ReserveController;
 use App\Http\Controllers\Time\TimeController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
@@ -36,6 +38,12 @@ Route::get('/get-all-users' , [UserController::class , 'get_all_users']);
 
 // Set Time For Doctor
 Route::post('/set-time/doctor/{doctor}' , [TimeController::class , 'set_time'])->middleware('auth:sanctum');
+
+// Set Hour for Doctor For The Time
+Route::post("/set-hour/time/{time}" , [HourController::class , 'set_hour'])->middleware('auth:sanctum');
+
+// Create Reservation For The User
+Route::post("/set-reserve/user/{user}/time/{time}/doctor/{doctor}" , [ReserveController::class , 'set_reserve'])->middleware('auth:sanctum');
 
 // Log Out User
 Route::post('/log-out-user' , [UserController::class , 'log_out_user'])->middleware('auth:sanctum');

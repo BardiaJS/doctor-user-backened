@@ -10,9 +10,7 @@ class Time extends Model
 {
     protected $fillable = [
         'doctor_id',
-        'day',
-        'month',
-        'year',
+        'date'
     ];
 
     public function doctor(){

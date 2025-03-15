@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Time;
+namespace App\Http\Resources\Reserve;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TimeResource extends JsonResource
+class ReserveResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,9 +14,6 @@ class TimeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'doctor_id' => $this->doctor_id,
-            'date' => $this->date
-        ];
+        return parent::toArray($request);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Time;
 
+use Carbon\Carbon;
 use App\Models\Time\Time;
 use Illuminate\Http\Request;
 use App\Models\Doctor\Doctor;
@@ -15,21 +16,15 @@ class TimeController extends Controller
 {
     public function set_time(Doctor $doctor , CreateTimeRequest $createTimeRequest){
         if (Auth::user()->is_doctor){
-
             $doctor_id =$doctor->id;
-
             $isDoctorUnique = !Time::where('doctor_id', $doctor_id)->exists();
-
             $validated = $createTimeRequest->validated();
-
+            $validated['date'] = Carbon::createFromFormat('d-m-Y', $validated['date'])->format('Y-m-d');
             if($isDoctorUnique){
-                
                 $time = Time::create(
                 [
                     'doctor_id' => $doctor_id,
-                    'day' => $validated['day'],
-                    'month' => $validated['month'],
-                    'year' => $validated['year']
+                    'date'=>$validated['date']
                 ]);
                 return new TimeResource($time);
             }else{

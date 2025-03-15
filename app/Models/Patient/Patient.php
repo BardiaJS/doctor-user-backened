@@ -2,6 +2,7 @@
 
 namespace App\Models\Patient;
 
+use App\Models\Reserve\Reserve;
 use App\Models\User;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
@@ -21,4 +22,10 @@ class Patient extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function reserve(){
+        return $this->hasOne(Reserve::class , 'patient_id' , 'id');
+    }
+
+
 }

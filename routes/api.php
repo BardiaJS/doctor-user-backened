@@ -33,9 +33,6 @@ Route::patch('/update-patient/{patient}' , [PatientController::class , 'update_p
 // Get All Doctors List
 Route::get('/doctors-list' , [DoctorController::class , 'get_all_doctors']);
 
-// Get All Users
-Route::get('/get-all-users' , [UserController::class , 'get_all_users']);
-
 // Set Time For Doctor
 Route::post('/set-time/doctor/{doctor}' , [TimeController::class , 'set_time'])->middleware('auth:sanctum');
 
@@ -44,6 +41,18 @@ Route::post("/set-hour/time/{time}" , [HourController::class , 'set_hour'])->mid
 
 // Create Reservation For The User
 Route::post("/set-reserve/user/{user}/time/{time}/doctor/{doctor}" , [ReserveController::class , 'set_reserve'])->middleware('auth:sanctum');
+
+// Update The Time Doctor
+Route::patch('/update-time/{time}' , [TimeController::class , 'update_time'])->middleware('auth:sanctum');
+
+// Update The Hour Doctor
+Route::patch('/update-hour/{hour}' , [HourController::class , 'update_hour'])->middleware('auth:sanctum');
+
+// Delete The Time
+Route::delete('/delete-time/{time}' , [TimeController::class , 'delete_time'])->middleware('auth:sanctum');
+
+// Delete The Hour
+Route::delete('/delete-time/{hour}' , [HourController::class , 'delete_hour'])->middleware('auth:sanctum');
 
 // Log Out User
 Route::post('/log-out-user' , [UserController::class , 'log_out_user'])->middleware('auth:sanctum');

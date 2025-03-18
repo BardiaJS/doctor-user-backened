@@ -5,6 +5,7 @@ namespace App\Http\Requests\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class CreateUserRequest extends FormRequest
 {
@@ -29,5 +30,14 @@ class CreateUserRequest extends FormRequest
             'last_name' => ['required' , 'regex:/^[A-Za-z]+$/'] ,
             'password' => ['required' , 'min:6'],
         ];
+    }
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

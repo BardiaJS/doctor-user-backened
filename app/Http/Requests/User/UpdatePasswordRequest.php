@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class UpdatePasswordRequest extends FormRequest
 {
@@ -26,5 +27,15 @@ class UpdatePasswordRequest extends FormRequest
             'password' => ['required' , 'min:6'],
             'new_password' => ['required' , 'min:6']
         ];
+    }
+
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

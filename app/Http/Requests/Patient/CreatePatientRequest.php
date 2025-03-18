@@ -5,6 +5,7 @@ namespace App\Http\Requests\Patient;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class CreatePatientRequest extends FormRequest
 {
@@ -28,5 +29,14 @@ class CreatePatientRequest extends FormRequest
             'type_of_insurance' => ['required' , 'in:government,private'] ,
             'medical_history' => ['nullable']
         ];
+    }
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

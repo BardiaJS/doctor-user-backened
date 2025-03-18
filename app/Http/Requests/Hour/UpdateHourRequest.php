@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Hour;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class UpdateHourRequest extends FormRequest
 {
@@ -71,5 +72,14 @@ class UpdateHourRequest extends FormRequest
             "23:30_23:45" => ['sometimes' , "string"],
             "23:45_00:00"  => ['sometimes' , "string"],
          ];
+    }
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

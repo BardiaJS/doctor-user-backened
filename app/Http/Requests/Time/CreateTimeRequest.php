@@ -4,6 +4,7 @@ namespace App\Http\Requests\Time;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class CreateTimeRequest extends FormRequest
 {
@@ -25,5 +26,14 @@ class CreateTimeRequest extends FormRequest
         return [
             'date' => ['required' , 'date' , 'date_format:d-m-Y' , 'regex:/\d{1,2}-\d{1,2}-\d{4}/' , Rule::unique('times' , 'date')]
         ];
+    }
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

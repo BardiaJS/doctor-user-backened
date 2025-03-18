@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -25,5 +26,14 @@ class UpdateUserRequest extends FormRequest
             'first_name' => ['sometimes' , 'regex:/^[A-Za-z]+$/'] ,
             'last_name' => ['sometimes' , 'regex:/^[A-Za-z]+$/'] ,
         ];
+    }
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }

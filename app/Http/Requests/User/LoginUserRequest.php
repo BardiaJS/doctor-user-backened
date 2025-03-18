@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomeValidationException;
 
 class LoginUserRequest extends FormRequest
 {
@@ -25,5 +26,15 @@ class LoginUserRequest extends FormRequest
             'national_id' => ['required'] ,
             'password' => ['required' , 'min:6'],
         ];
+    }
+
+
+    protected function failedValidation($validator)
+    {
+        // Retrieve the validation errors
+        $errors = $validator->errors()->toArray();
+        
+        // Throw your custom validation exception
+        throw new CustomeValidationException("Validation failed", $errors);
     }
 }
